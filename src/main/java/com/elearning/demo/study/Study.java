@@ -1,6 +1,6 @@
 package com.elearning.demo.study;
 import com.elearning.demo.attempt.Attempt;
-import com.elearning.demo.course.Course;
+import com.elearning.demo.exam.Exam;
 import com.elearning.demo.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -20,8 +20,8 @@ public class Study {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

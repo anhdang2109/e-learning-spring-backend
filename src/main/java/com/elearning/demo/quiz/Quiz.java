@@ -1,6 +1,6 @@
 package com.elearning.demo.quiz;
 
-import com.elearning.demo.course.Course;
+import com.elearning.demo.exam.Exam;
 import com.elearning.demo.question.Question;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class Quiz {
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Course> courses = new ArrayList<>();
+    private List<Exam> exams = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "quiz_question",
