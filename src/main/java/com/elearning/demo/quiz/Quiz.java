@@ -1,7 +1,8 @@
 package com.elearning.demo.quiz;
 
-import com.elearning.demo.exam.Exam;
+import com.elearning.demo.category.Category;
 import com.elearning.demo.question.Question;
+import com.elearning.demo.study.Study;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
@@ -17,9 +18,14 @@ public class Quiz {
     private String quizname;
     private String description;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     @JsonIgnore
-    private List<Exam> exams = new ArrayList<>();
+    private Category category;
+
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.MERGE)
+    @JsonIgnore
+    private List<Study> studies = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "quiz_question",
@@ -27,6 +33,5 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id")
     )
     private List<Question> questions = new ArrayList<>();
-
 
 }

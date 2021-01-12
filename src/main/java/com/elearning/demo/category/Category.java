@@ -1,4 +1,4 @@
-package com.elearning.demo.exam;
+package com.elearning.demo.category;
 import com.elearning.demo.quiz.Quiz;
 import com.elearning.demo.study.Study;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,22 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "exam")
+@Table(name = "category")
 @Data
-public class Exam {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
+    private List<Quiz> quizzes = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "exam", cascade = CascadeType.MERGE)
-    @JsonIgnore
-    private List<Study> studies = new ArrayList<>();
-
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
 }
