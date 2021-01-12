@@ -20,6 +20,7 @@ public class Question {
     private Long id;
     private String questionname;
     private String description;
+    private String abc;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<QuestionAnswer> questionAnswers = new ArrayList<>();
