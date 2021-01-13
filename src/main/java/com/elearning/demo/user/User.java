@@ -37,7 +37,7 @@ public class User {
     private List<Study> studies = new ArrayList<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.MERGE)
-    @JsonIgnore
-    private List<Group> groups;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.MERGE)
+//    @JsonIgnore
+//    private List<Group> groups;
 }
