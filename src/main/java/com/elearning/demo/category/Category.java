@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class Category {
     private Long id;
     private String name;
     private String description;
+    private LocalDate created_at;
+    private LocalDate updated_at;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
     private List<Quiz> quizzes = new ArrayList<>();

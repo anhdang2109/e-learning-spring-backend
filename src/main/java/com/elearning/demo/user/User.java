@@ -23,10 +23,11 @@ public class User {
     private String phone;
     private String title;
     private String imageSource;
-    private Long wallet;
+    private String token;
     private LocalDate created_at;
     private LocalDate updated_at;
     private String status;
+    private boolean isAdmin;
 
     @ManyToOne
     @JoinColumn(name = "workplace_id")

@@ -6,6 +6,7 @@ import com.elearning.demo.study.Study;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class Quiz {
     private Long id;
     private String quizname;
     private String description;
+    private Long randomNumber;
+    private LocalDate created_at;
+    private LocalDate updated_at;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

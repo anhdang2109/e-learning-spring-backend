@@ -13,6 +13,7 @@ public class Workplace {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String address;
 
     @OneToMany(mappedBy = "workplace", cascade = CascadeType.MERGE)
     @JsonIgnore
