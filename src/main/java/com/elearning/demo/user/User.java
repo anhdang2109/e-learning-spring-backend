@@ -1,13 +1,12 @@
 package com.elearning.demo.user;
-import com.elearning.demo.attempt.Attempt;
+import com.elearning.demo.role.Role;
 import com.elearning.demo.study.Study;
-import com.elearning.demo.workplace.Workplace;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,13 +25,12 @@ public class User {
     private LocalDate created_at;
     private LocalDate updated_at;
     private String status;
-    private boolean isAdmin;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Study> studies = new ArrayList<>();
 
 
-//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.MERGE)
-//    @JsonIgnore
-//    private List<Group> groups;
 }
