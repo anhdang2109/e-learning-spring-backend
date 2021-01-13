@@ -1,8 +1,5 @@
 package com.elearning.demo.user;
-import com.elearning.demo.attempt.Attempt;
 import com.elearning.demo.study.Study;
-import com.elearning.demo.workplace.Workplace;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
