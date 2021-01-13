@@ -41,11 +41,5 @@ public class Question {
     @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
