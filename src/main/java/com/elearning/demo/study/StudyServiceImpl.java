@@ -10,11 +10,15 @@ public class StudyServiceImpl implements StudyService{
     @Autowired
     private StudyRepository studyRepository;
 
+    @Override
     public List<Study> findAllStudy() {return studyRepository.findAll();}
 
-    public void saveStudy(Study study) {studyRepository.save(study);}
+    @Override
+    public Study saveStudy(Study study) {return studyRepository.save(study);}
 
+    @Override
     public Study findStudyById(Long id) {return studyRepository.findById(id).orElse(null);}
 
+    @Override
     public void removeStudy(Long id) {studyRepository.deleteById(id);}
 }
