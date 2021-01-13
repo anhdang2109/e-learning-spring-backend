@@ -1,5 +1,4 @@
 package com.elearning.demo.question;
-import com.elearning.demo.attempt.Attempt;
 import com.elearning.demo.assumption.Assumption;
 import com.elearning.demo.question_answer.QuestionAnswer;
 import com.elearning.demo.quiz.Quiz;
@@ -42,5 +41,11 @@ public class Question {
     @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

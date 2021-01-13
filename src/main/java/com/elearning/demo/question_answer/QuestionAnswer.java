@@ -23,4 +23,12 @@ public class QuestionAnswer {
     @JoinColumn(name = "question_id")
     @JsonIgnore
     private Question question;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -24,4 +24,11 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
     private List<Quiz> quizzes = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
