@@ -10,6 +10,8 @@ public class UserController {
     @Autowired
     private UserServiceImp userService;
 
+
+
     @GetMapping("/admin/users")
     public List<User> listUsers() {
         return userService.findAllUser();

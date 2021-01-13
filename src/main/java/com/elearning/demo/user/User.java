@@ -1,6 +1,5 @@
 package com.elearning.demo.user;
 import com.elearning.demo.attempt.Attempt;
-import com.elearning.demo.group.Group;
 import com.elearning.demo.study.Study;
 import com.elearning.demo.workplace.Workplace;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,10 +27,6 @@ public class User {
     private LocalDate updated_at;
     private String status;
     private boolean isAdmin;
-
-    @ManyToOne
-    @JoinColumn(name = "workplace_id")
-    private Workplace workplace;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Study> studies = new ArrayList<>();
