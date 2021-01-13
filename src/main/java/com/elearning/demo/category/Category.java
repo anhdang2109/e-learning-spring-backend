@@ -24,4 +24,5 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
     private List<Quiz> quizzes = new ArrayList<>();
 
+
 }

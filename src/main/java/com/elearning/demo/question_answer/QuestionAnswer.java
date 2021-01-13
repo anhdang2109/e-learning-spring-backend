@@ -23,4 +23,5 @@ public class QuestionAnswer {
     @JoinColumn(name = "question_id")
     @JsonIgnore
     private Question question;
+
 }

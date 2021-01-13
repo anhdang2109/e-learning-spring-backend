@@ -14,12 +14,12 @@ public class UserController {
     public List<User> listUsers() {
         return userService.findAllUser();
     }
-
-    @PostMapping(value = "/admin/users/create")
-    public User saveUser(@RequestBody User user) {
-        user.setCreated_at(java.time.LocalDate.now());
-        return userService.saveUser(user);
-    }
+//
+//    @PostMapping(value = "/admin/users/create")
+//    public User saveUser(@RequestBody User user) {
+//        user.setCreated_at(java.time.LocalDate.now());
+//        return userService.saveUser(user);
+//    }
 
     @PostMapping(value = "/admin/users/import")
     public List<User> importUser(@RequestBody List<User> users) {
