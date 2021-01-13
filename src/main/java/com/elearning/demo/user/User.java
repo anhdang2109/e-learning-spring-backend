@@ -1,6 +1,5 @@
 package com.elearning.demo.user;
 import com.elearning.demo.attempt.Attempt;
-import com.elearning.demo.group.Group;
 import com.elearning.demo.study.Study;
 import com.elearning.demo.workplace.Workplace;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,20 +22,17 @@ public class User {
     private String phone;
     private String title;
     private String imageSource;
-    private Long wallet;
+    private String token;
     private LocalDate created_at;
     private LocalDate updated_at;
     private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "workplace_id")
-    private Workplace workplace;
+    private boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Study> studies = new ArrayList<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.MERGE)
-    @JsonIgnore
-    private List<Group> groups;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.MERGE)
+//    @JsonIgnore
+//    private List<Group> groups;
 }

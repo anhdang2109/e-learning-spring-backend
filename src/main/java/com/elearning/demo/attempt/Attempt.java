@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,11 @@ public class Attempt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
+    private String status;
+    private Long averageScore;
+    private LocalDate submitted_at;
+    private LocalDate created_at;
+    private Long takingTime;
 
 
     @ManyToOne

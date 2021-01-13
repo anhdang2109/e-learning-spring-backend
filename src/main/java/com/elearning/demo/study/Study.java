@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class Study {
     private Long id;
     private String studyname;
     private String description;
+    private Long highestScore;
+    private LocalDate created_at;
+    private LocalDate updated_at;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")

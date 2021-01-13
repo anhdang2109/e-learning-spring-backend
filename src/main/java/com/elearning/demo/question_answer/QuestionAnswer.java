@@ -4,6 +4,7 @@ import com.elearning.demo.question.Question;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "question_answer")
@@ -12,8 +13,11 @@ public class QuestionAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String answername;
-    private String description;
+    private String content;
+    private Boolean isCorrect;
+    private LocalDate created_at;
+    private LocalDate updated_at;
+
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")

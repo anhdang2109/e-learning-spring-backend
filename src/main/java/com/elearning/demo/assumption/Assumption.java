@@ -7,6 +7,7 @@ import com.elearning.demo.user_answer.UserAnswer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +18,12 @@ public class Assumption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
-
-
+    private Long point;
+    private String status;
+    private boolean isCorrect;
+    private boolean isFlag;
+    private LocalDate created_at;
+    private LocalDate updated_at;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "attempt_assumption",
@@ -33,6 +36,10 @@ public class Assumption {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "attempt_id")
+    private Attempt attempt;
 
     @OneToMany(mappedBy = "assumption", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<UserAnswer> userAnswers = new ArrayList<>();
