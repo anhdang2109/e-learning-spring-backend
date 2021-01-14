@@ -1,5 +1,7 @@
 package com.elearning.demo.user;
 
+
+import com.elearning.demo.configuration.model.UserPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,17 +29,17 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User findByUserNameAndIsStatusFalse(String username) {
-        return userRepository.findByUsernameAndStatusIsFalse(username);
+        return userRepository.findByUsernameAndIsDeleted(username,0);
     }
 
     @Override
     public Page<User> findAllByIsStatusIsTrue(Pageable pageable) {
-        return userRepository.findAllByStatusTrue(pageable);
+        return userRepository.findAllByIsDeleted(1, pageable);
     }
 
     @Override
     public User findByUserNameAndIsStatusIsTrue(String username) {
-        return userRepository.findByUsernameAndStatusIsTrue(username);
+        return userRepository.findByUsernameAndIsDeleted(username,1);
     }
 
     @Override
@@ -47,8 +48,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Page<User> findAll(Pageable pageable) {
-        return userRepository.findAllByStatusFalse(pageable);
+    public Iterable<User> findAll() {
+        return userRepository.findAllByIsDeleted(1);
     }
 
     @Override
@@ -68,10 +69,11 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsernameAndStatusIsFalse(username);
+        User user = userRepository.findByUsernameAndIsDeleted(username,1);
         if(user == null){
             throw new UsernameNotFoundException(username);
         }
-        return null;
+//        return null;
+        return UserPrinciple.build(user);
     }
 }

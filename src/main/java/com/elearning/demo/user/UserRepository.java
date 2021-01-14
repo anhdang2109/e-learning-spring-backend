@@ -11,23 +11,23 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Page<User> findAllByStatusFalse(Pageable pageable);
-    Page<User> findAllByStatusTrue(Pageable pageable);
+    Iterable<User> findAllByIsDeleted(int isDeleted);
+    Page<User> findAllByIsDeleted(int isDeleted, Pageable pageable);
 
     User findByUsername(String username);
-    User findByUsernameAndStatusIsFalse(String username);
-    User findByUsernameAndStatusIsTrue(String username);
+//    User findByUsernameAndIsDeletedFalse(String username);
+    User findByUsernameAndIsDeleted(String username, Integer isDeleted);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE user u set status = 1 where u.id = :id", nativeQuery = true)
+    @Query(value = "UPDATE user u set is_deleted = 1 where u.id = :id", nativeQuery = true)
     void remove(@Param("id") Long id);
 
-    @Query(value="select * from user u where u.username LIKE concat('%',:username,'%') and u.status = 0",nativeQuery = true)
+    @Query(value="select * from user u where u.username LIKE concat('%',:username,'%') and u.is_deleted = 0",nativeQuery = true)
     Page<User> findAllByNameContaining(@Param("username") String username, Pageable pageable);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE user u set u.status = 0 where u.id = :id", nativeQuery = true)
+    @Query(value = "UPDATE user u set u.is_deleted = 0 where u.id = :id", nativeQuery = true)
     void restore(@Param("id") Long id);
 }

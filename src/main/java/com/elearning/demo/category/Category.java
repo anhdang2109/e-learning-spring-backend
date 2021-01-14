@@ -18,6 +18,7 @@ public class Category {
     private Long id;
     private String name;
     private String description;
+    private String imageSource;
     private LocalDate created_at;
     private LocalDate updated_at;
 

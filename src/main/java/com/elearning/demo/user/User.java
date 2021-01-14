@@ -22,9 +22,9 @@ public class User {
     private String title;
     private String imageSource;
     private String token;
-    private LocalDate created_at;
-    private LocalDate updated_at;
-    private String status;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
+    private Integer isDeleted;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Service
 public interface IGeneralService<T> {
-    Page<T> findAll(Pageable pageable);
+    Iterable<T> findAll();
 
     T save(T t);
 
