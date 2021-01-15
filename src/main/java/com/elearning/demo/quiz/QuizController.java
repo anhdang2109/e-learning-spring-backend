@@ -1,38 +1,37 @@
 package com.elearning.demo.quiz;
 
-import com.elearning.demo.question.Question;
+import com.elearning.demo.study.Study;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("admin/quiz")
 public class QuizController {
-    @Autowired QuizServiceImpl quizService;
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Iterable allQuiz() {
-        return quizService.findAllQuiz();
-    }
-    // Create quiz
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Quiz createQuiz(@RequestBody Quiz quiz) {
-        return quizService.saveQuiz(quiz);
+    @Autowired
+    private QuizService quizService;
+
+    @GetMapping("/admin/quizzes")
+    public List<Quiz> quizList() { return quizService.findAllQuiz(); }
+
+    @GetMapping("/admin/quizzes/{id}")
+    public Quiz findStudyById(@PathVariable(value = "id") Long id) {
+        return quizService.findQuizById(id);
     }
 
-    // Delete quiz
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteQuiz(@PathVariable("id") Long id) {
-        Quiz quiz = quizService.findQuizById(id);
-        if (quiz == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PostMapping("/admin/quizzes")
+    public void saveStudy(@RequestBody Quiz quiz) {
+        quizService.saveQuiz(quiz);
+    }
+
+    @PutMapping("/admin/quizzes")
+    public void updateStudy(@RequestBody Quiz quiz) { quizService.saveQuiz(quiz); }
+
+    @DeleteMapping("/admin/quizzes/{id}")
+    public void deleteStudy(@PathVariable(value = "id") Long id) {
         quizService.removeQuiz(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
