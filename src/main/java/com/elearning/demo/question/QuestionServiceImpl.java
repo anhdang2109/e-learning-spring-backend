@@ -3,12 +3,15 @@ package com.elearning.demo.question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionServiceImpl implements QuestionService  {
-    @Autowired QuestionRepository questionRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Override
-    public Iterable<Question> findAllQuestion() {
+    public List<Question> findAllQuestion() {
         return questionRepository.findAll();
     }
 
@@ -18,13 +21,8 @@ public class QuestionServiceImpl implements QuestionService  {
     }
 
     @Override
-    public Question saveQuestion(Question question) {
-        return questionRepository.save(question);
-
-    }
+    public Question saveQuestion(Question question) { return questionRepository.save(question); }
 
     @Override
-    public void removeQuestion(Long id) {
-
-    }
+    public void removeQuestion(Long id) { questionRepository.deleteById(id);}
 }
