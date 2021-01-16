@@ -15,6 +15,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+
     @GetMapping("/admin/questions")
     public List<Question> questions() {return questionService.findAllQuestion();}
 
