@@ -2,13 +2,15 @@ package com.elearning.demo.quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuizServiceImpl implements QuizService {
     @Autowired
     QuizRepository quizRepository;
 
     @Override
-    public Iterable<Quiz> findAllQuiz() {
+    public List<Quiz> findAllQuiz() {
         return quizRepository.findAll();
     }
 
@@ -25,6 +27,5 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void removeQuiz(Long id) {
         quizRepository.deleteById(id);
-
     }
 }

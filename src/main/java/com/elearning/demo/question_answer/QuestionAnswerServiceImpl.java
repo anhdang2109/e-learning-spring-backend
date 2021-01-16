@@ -3,12 +3,14 @@ package com.elearning.demo.question_answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionAnswerServiceImpl implements QuestionAnswerService {
     @Autowired
     private QuestionAnswerRepository questionAnswerRepository;
     @Override
-    public Iterable<QuestionAnswer> findAllQuestionAnswer() {
+    public List<QuestionAnswer> findAllQuestionAnswer() {
         return questionAnswerRepository.findAll();
     }
 

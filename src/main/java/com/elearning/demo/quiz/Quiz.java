@@ -37,5 +37,4 @@ public class Quiz {
             inverseJoinColumns = @JoinColumn(name = "question_id", referencedColumnName = "id")
     )
     private List<Question> questions = new ArrayList<>();
-
 }

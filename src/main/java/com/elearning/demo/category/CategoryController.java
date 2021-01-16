@@ -1,34 +1,31 @@
 package com.elearning.demo.category;
 
-import com.elearning.demo.quiz.QuizServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("admin/category")
 public class CategoryController {
-    @Autowired CategoryServiceImpl categoryService;
-//    @Autowired
-//    QuizServiceImpl quizService;
-//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public Iterable allQuiz() {
-//        return quizService.findAllQuiz();
-//    }
+    @Autowired
+    private CategoryService categoryService;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Iterable allCategory() {
-        return categoryService.findAllCategory();
-    }
-    // Create Category
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.saveCategory(category);
+    @GetMapping("/admin/categories")
+    public List<Category> categories() {return categoryService.findAllCategory();}
+
+    @GetMapping("/admin/categories/{id}")
+    public Category findCategoryById(@PathVariable(value = "id") Long id) { return categoryService.findCategoryById(id); }
+
+    @PostMapping("/admin/categories")
+    public void saveCategory(@RequestBody Category category) {
+        categoryService.saveCategory(category);
     }
 
+    @PutMapping("/admin/categories")
+    public void updateStudy(@RequestBody Category category) { categoryService.saveCategory(category); }
+
+    @DeleteMapping("/admin/categories/{id}")
+    public void deleteStudy(@PathVariable(value = "id") Long id) {
+        categoryService.removeCategory(id);
+    }
 }
