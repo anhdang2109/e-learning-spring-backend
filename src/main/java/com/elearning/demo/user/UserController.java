@@ -5,6 +5,7 @@ import com.elearning.demo.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -53,33 +54,44 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping
+
+    @GetMapping("/users")
     public ResponseEntity<Iterable<User>> findAllUser(){
         return new ResponseEntity<>( userService.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{id}")
+
+    @PutMapping("/users/edit/{id}")
     public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
         Optional<User> user1= userService.findById(id);
         if (!user1.isPresent()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         user1.get().setUsername(user.getUsername());
-        user1.get().setPassword(user.getPassword());
+        user1.get().setPassword(passwordEncoder.encode(user.getPassword()));
         user1.get().setEmail(user.getEmail());
         user1.get().setImageSource(user.getImageSource());
         user1.get().setTitle(user.getTitle());
         user1.get().setPhone(user.getPhone());
         user1.get().setGender(user.getGender());
+        user1.get().setRoles(user.getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
+        user1.get().setIsDeleted(user.getIsDeleted());
 
         userService.save(user1.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping ("/delete/{id}")
+    @PutMapping ("/users/delete/{id}")
     public void deleteUser(@PathVariable(value = "id") Long id) {
         userService.restore(id);
+    }
+
+    // User detail
+    @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public User userDetail(@PathVariable Long id) {
+        return userService.findById(id).get();
     }
 
 }
