@@ -4,6 +4,7 @@ import com.elearning.demo.role.Role;
 import com.elearning.demo.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,6 @@ public class UserController {
     PasswordEncoder passwordEncoder;
 
 
-
     @PostMapping("/register")
     public ResponseEntity<User> create(@RequestBody User user) {
         Role role = RoleService.findRoleByRoleName("ROLE_USER");
@@ -54,17 +54,26 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    }
 
     @GetMapping("/users")
-    public ResponseEntity<Iterable<User>> findAllUser(){
-        return new ResponseEntity<>( userService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> findAllUser() {
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/isdeleted")
+    public ResponseEntity<Iterable<User>> findAllUserDeleted(String username, Pageable pageable) {
+        return new ResponseEntity<>(userService.findAllByNameContaining(username, pageable), HttpStatus.OK);
     }
 
 
     @PutMapping("/users/edit/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user){
-        Optional<User> user1= userService.findById(id);
-        if (!user1.isPresent()){
+    public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        Optional<User> user1 = userService.findById(id);
+        if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         user1.get().setUsername(user.getUsername());
@@ -82,7 +91,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping ("/users/delete/{id}")
+    @PutMapping("/users/delete/{id}")
     public void deleteUser(@PathVariable(value = "id") Long id) {
         userService.restore(id);
     }
