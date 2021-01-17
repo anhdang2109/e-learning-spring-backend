@@ -3,6 +3,7 @@ package com.elearning.demo.attempt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -34,12 +35,13 @@ public class AttemptServiceImpl implements AttemptService{
 
     //Check cau tra loi co dung khong
     public boolean checkAnswer( Boolean[] userAnswer, Boolean[] questionAnswer) {
-        return true;
+        return Arrays.equals(userAnswer, questionAnswer);
     }
 
     //Tinh tong diem
-    public Long countAverageScore( Boolean[] result) {
-        return 8L;
+    public long countAverageScore(Boolean[] result) {
+        long countAnswerIsTrue = Arrays.stream(result).filter(value -> value == true).count();
+        double score = Math.ceil(((10/result.length) * countAnswerIsTrue) * 100)/100;
+        return (long) score;
     }
-
 }
