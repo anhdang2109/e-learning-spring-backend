@@ -17,8 +17,11 @@ public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String studyname;
+    private Long userID;
     private String description;
+    private String quizname;
+    private String username;
+    private String email;
     private Long highestScore;
     private LocalDate created_at;
     private LocalDate updated_at;

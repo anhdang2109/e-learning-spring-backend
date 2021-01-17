@@ -34,5 +34,23 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Study> studies = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", title='" + title + '\'' +
+                ", imageSource='" + imageSource + '\'' +
+                ", token='" + token + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", isDeleted=" + isDeleted +
+                ", roles=" + roles +
+                ", studies=" + studies +
+                '}';
+    }
 }

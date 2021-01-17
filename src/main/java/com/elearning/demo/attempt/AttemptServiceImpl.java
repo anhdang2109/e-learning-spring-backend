@@ -39,6 +39,7 @@ public class AttemptServiceImpl implements AttemptService{
 
     //Tinh tong diem
     public Long countAverageScore( Boolean[] result) {
+
         return 8L;
     }
 
