@@ -1,8 +1,6 @@
 package com.elearning.demo.assumption;
-
 import com.elearning.demo.attempt.Attempt;
 import com.elearning.demo.question.Question;
-import com.elearning.demo.question_answer.QuestionAnswer;
 import com.elearning.demo.user_answer.UserAnswer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -25,13 +23,6 @@ public class Assumption {
     private LocalDate created_at;
     private LocalDate updated_at;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name = "attempt_assumption",
-            joinColumns = @JoinColumn(name = "assumption_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "attempt_id", referencedColumnName = "id")
-    )
-    @JsonIgnore
-    private List<Attempt> attempts;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -39,6 +30,7 @@ public class Assumption {
 
     @ManyToOne
     @JoinColumn(name = "attempt_id")
+    @JsonIgnore
     private Attempt attempt;
 
     @OneToMany(mappedBy = "assumption", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

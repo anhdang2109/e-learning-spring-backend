@@ -20,8 +20,8 @@ public class Attempt {
     private Long id;
     private String status;
     private Long averageScore;
-    private LocalDate submitted_at;
-    private LocalDate created_at;
+    private LocalDate submittedAt;
+    private LocalDate createdAt;
     private Long takingTime;
 
 
@@ -31,7 +31,7 @@ public class Attempt {
     private Study study;
 
 
-    @ManyToMany(mappedBy = "attempts", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "attempt")
     private List<Assumption> assumptions;
 
 }

@@ -29,4 +29,5 @@ public class AssumptionServiceImpl implements AssumptionService{
     public void removeAssumption(Long id) {
         assumptionRepository.deleteById(id);
     }
+
 }

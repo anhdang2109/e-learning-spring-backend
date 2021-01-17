@@ -29,4 +29,17 @@ public class AttemptServiceImpl implements AttemptService{
     public void removeAttempt(Long id) {
         attemptRepository.deleteById(id);
     }
+
+
+
+    //Check cau tra loi co dung khong
+    public boolean checkAnswer( Boolean[] userAnswer, Boolean[] questionAnswer) {
+        return true;
+    }
+
+    //Tinh tong diem
+    public Long countAverageScore( Boolean[] result) {
+        return 8L;
+    }
+
 }

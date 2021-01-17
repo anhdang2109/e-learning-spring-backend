@@ -7,31 +7,32 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/admin/assumptions")
 public class AssumptionController {
     @Autowired
     AssumptionService assumptionService;
 
-    @GetMapping("/admin/assumptions")
+    @GetMapping
     public List<Assumption> assumptionList() {
         return assumptionService.findAllAssumption();
     }
 
-    @GetMapping("/admin/assumptions/{id}")
+    @GetMapping("/{id}")
     public Assumption findAssumptionById(@PathVariable(value = "id") Long id) {
         return assumptionService.findAssumptionById(id);
     }
 
-    @PostMapping("/admin/assumptions")
+    @PostMapping
     public Assumption saveAssumption(@RequestBody Assumption assumption) {
         return assumptionService.saveAssumption(assumption);
     }
 
-    @PutMapping("/admin/assumptions")
+    @PutMapping
     public Assumption updateAssumption(@RequestBody Assumption assumption) {
         return assumptionService.saveAssumption(assumption);
     }
 
-    @DeleteMapping("/admin/assumptions/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAssumption(@PathVariable(value = "id") Long id) {
         assumptionService.removeAssumption(id);
     }

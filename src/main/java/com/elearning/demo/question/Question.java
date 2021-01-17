@@ -26,10 +26,6 @@ public class Question {
     private LocalDate created_at;
     private LocalDate updated_at;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    @JsonIgnore
-    private Quiz quiz;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<QuestionAnswer> questionAnswers = new ArrayList<>();
