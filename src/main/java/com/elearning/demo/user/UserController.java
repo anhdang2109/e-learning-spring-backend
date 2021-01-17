@@ -54,6 +54,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(userService.findByUsername(username), HttpStatus.OK);
+    }
 
     @GetMapping("/users")
     public ResponseEntity<Iterable<User>> findAllUser() {
