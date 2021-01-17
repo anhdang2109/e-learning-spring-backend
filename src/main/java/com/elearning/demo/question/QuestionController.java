@@ -1,5 +1,6 @@
 package com.elearning.demo.question;
 
+import com.elearning.demo.study.Study;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
+
 public class QuestionController {
     @Autowired
     private QuestionService questionService;

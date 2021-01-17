@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 @CrossOrigin("*")
+=======
+>>>>>>> ff7b67d (update pakage Category)
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
