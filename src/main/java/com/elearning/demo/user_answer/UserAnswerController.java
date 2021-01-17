@@ -7,31 +7,32 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/admin/useranswers")
 public class UserAnswerController {
     @Autowired
     UserAnswerService userAnswerService;
 
-    @GetMapping("/admin/useranswers")
+    @GetMapping
     public List<UserAnswer> findAll() {
         return userAnswerService.findAllUserAnswer();
     }
 
-    @GetMapping("/admin/useranswers/{id}")
+    @GetMapping("/{id}")
     public UserAnswer findUserAnswerById(@PathVariable(value = "id") Long id) {
         return userAnswerService.findUserAnswerById(id);
     }
 
-    @PostMapping("/admin/useranswers")
+    @PostMapping
     public UserAnswer saveUserAnswer(@RequestBody UserAnswer userAnswer) {
         return userAnswerService.saveUserAnswer(userAnswer);
     }
 
-    @PutMapping("/admin/useranswers")
+    @PutMapping
     public void updateUserAnswer(@RequestBody UserAnswer userAnswer) {
         userAnswerService.saveUserAnswer(userAnswer);
     }
 
-    @DeleteMapping("/admin/useranswers/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUserAnswer(@PathVariable(value = "id") Long id) {
         userAnswerService.removeUserAnswer(id);
     }

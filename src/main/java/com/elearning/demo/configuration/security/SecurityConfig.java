@@ -41,7 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if(users.isEmpty()){
             User user = new User();
             user.setUsername("admin");
+            user.setEmail("admin@gmail.com");
             user.setPassword(passwordEncoder.encode("admin"));
+            user.setIsDeleted(1);
             userService.save(user);
         }
     }

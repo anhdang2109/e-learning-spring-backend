@@ -1,38 +1,61 @@
 package com.elearning.demo.question;
 
-import com.elearning.demo.study.Study;
+import com.elearning.demo.question_answer.QuestionAnswer;
+import com.elearning.demo.question_answer.QuestionAnswerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @CrossOrigin("*")
 public class QuestionController {
     @Autowired
-    private QuestionService questionService;
+    private QuestionServiceImpl questionService;
 
+    @Autowired
+    private QuestionAnswerServiceImpl questionAnswerService;
 
-    @GetMapping("/admin/questions")
-    public List<Question> questions() {return questionService.findAllQuestion();}
-
-    @GetMapping("/admin/questions/{id}")
-    public Question findQuestionById(@PathVariable(value = "id") Long id) { return questionService.findQuestionById(id); }
-
-    @PostMapping("/admin/questions")
-    public void saveQuestion(@RequestBody Question question) {
-        questionService.saveQuestion(question);
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Iterable allQuestion() {
+        return questionService.findAllQuestion();
     }
 
-    @PutMapping("/admin/questions")
-    public void updateQuestion(@RequestBody Question question) { questionService.saveQuestion(question); }
+    // Create question
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Question createQuestion(@RequestBody Question question) {
+        Long newQuestionID = questionService.saveQuestion(question).getId();
+        for (QuestionAnswer answer: question.getQuestionAnswers()) {
+            answer.setQuestion(new Question());
+            answer.getQuestion().setId(newQuestionID);
+            questionAnswerService.saveQuestionAnswer(answer);
+        }
+        return question;
+    }
 
-    @DeleteMapping("/admin/questions/{id}")
-    public void deleteQuestionById(@PathVariable(value = "id") Long id) {
+    // Delete question
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable("id") Long id) {
+        Question question = questionService.findQuestionById(id);
+        if (question == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         questionService.removeQuestion(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // Update question
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Question editQuestion(@PathVariable Long id, @RequestBody Question question) {
+        question.setId(id);
+        return questionService.saveQuestion(question);
+    }
+
+
 }

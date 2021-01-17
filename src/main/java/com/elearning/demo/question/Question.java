@@ -18,6 +18,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String code;
     private String type;
     private String level;
     private String content;
@@ -25,9 +26,6 @@ public class Question {
     private LocalDate created_at;
     private LocalDate updated_at;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<QuestionAnswer> questionAnswers = new ArrayList<>();

@@ -15,8 +15,8 @@ public class QuestionAnswer {
     private Long id;
     private String content;
     private Boolean isCorrect;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
