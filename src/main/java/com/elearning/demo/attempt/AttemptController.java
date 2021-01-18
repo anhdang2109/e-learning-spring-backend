@@ -48,7 +48,6 @@ public class AttemptController {
         Long idAttempt = attempt.getId();
         Attempt attemptExisted = attemptService.findAttemptById(idAttempt);
         attemptExisted.setStatus("finished");
-        attemptExisted.setAverageScore(8L);
         attemptService.saveAttempt(attemptExisted);
         List<Assumption> assumptions = attempt.getAssumptions();
         for (Assumption assumptionEdited:assumptions) {
@@ -64,7 +63,10 @@ public class AttemptController {
                 userAnswerService.saveUserAnswer(userAnswerExisted);
             }
         }
-        return attemptExisted;
+        attemptExisted = attemptService.findAttemptById(idAttempt);
+        attemptExisted.setAverageScore(attemptServiceImpl.countAverageScore(attemptService.findAttemptById(idAttempt)));
+        attemptService.saveAttempt(attemptExisted);
+        return attemptService.saveAttempt(attemptExisted);
     }
 
     @DeleteMapping("/{id}")
