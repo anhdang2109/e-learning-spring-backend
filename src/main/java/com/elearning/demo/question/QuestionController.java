@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping("/admin/question")
 public class QuestionController {
     @Autowired
     private QuestionServiceImpl questionService;

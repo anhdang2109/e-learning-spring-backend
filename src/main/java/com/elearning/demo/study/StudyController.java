@@ -6,6 +6,9 @@ import com.elearning.demo.attempt.Attempt;
 import com.elearning.demo.attempt.AttemptService;
 import com.elearning.demo.question.Question;
 import com.elearning.demo.quiz.Quiz;
+import com.elearning.demo.quiz.QuizService;
+import com.elearning.demo.user.User;
+import com.elearning.demo.user.UserService;
 import com.elearning.demo.user_answer.UserAnswer;
 import com.elearning.demo.user_answer.UserAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,12 @@ import java.util.List;
 public class StudyController {
     @Autowired
     private StudyService studyService;
+
+    @Autowired
+    private QuizService quizService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AttemptService attemptService;
@@ -38,8 +47,17 @@ public class StudyController {
     }
 
     @PostMapping("/admin/studies")
-    public void saveStudy(@RequestBody Study study) {
-        studyService.saveStudy(study);
+    public Study saveStudy(@RequestBody Study study) {
+        System.out.println(study);
+        User userExisted = userService.findById(study.getUserID()).get();
+        Long idNewStudy = studyService.saveStudy(study).getId();
+        Study newStudy = studyService.findStudyById(idNewStudy);
+        Quiz quizExisted = quizService.findQuizById(study.getQuiz().getId());
+        newStudy.setUser(userExisted);
+        newStudy.setEmail(userExisted.getEmail());
+        newStudy.setUsername(userExisted.getUsername());
+        newStudy.setQuizname(quizExisted.getQuizname());
+        return studyService.saveStudy(newStudy);
     }
 
     @PutMapping("/admin/studies")
@@ -53,6 +71,8 @@ public class StudyController {
         Attempt newAttempt = attemptService.findAttemptById(idNewAttempt);
         newAttempt.setStudy(studyExisted);
         newAttempt.setStatus("in progress");
+        newAttempt.setUsername(studyExisted.getUser().getUsername());
+        newAttempt.setEmail(studyExisted.getUser().getEmail());
         List<Assumption> newAttemptAssumption = new ArrayList<>();
         Quiz studyQuiz = study.getQuiz();
         for (int i = 0; i < studyQuiz.getQuestions().size(); i++) {

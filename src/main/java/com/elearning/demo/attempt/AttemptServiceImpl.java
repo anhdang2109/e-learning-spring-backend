@@ -38,7 +38,6 @@ public class AttemptServiceImpl implements AttemptService{
         return Arrays.equals(userAnswer, questionAnswer);
     }
 
-    //Tinh tong diem
     public long countAverageScore(Boolean[] result) {
         long countAnswerIsTrue = Arrays.stream(result).filter(value -> value == true).count();
         double score = Math.ceil(((10/result.length) * countAnswerIsTrue) * 100)/100;

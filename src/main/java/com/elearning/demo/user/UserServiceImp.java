@@ -28,6 +28,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User findByUserNameAndIsStatusFalse(String username) {
         return userRepository.findByUsernameAndIsDeleted(username,0);
     }
@@ -61,6 +66,7 @@ public class UserServiceImp implements UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
 
     @Override
     public void remove(Long id) {

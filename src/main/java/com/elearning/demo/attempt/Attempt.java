@@ -19,6 +19,8 @@ public class Attempt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
+    private String username;
+    private String email;
     private Long averageScore;
     private LocalDate submittedAt;
     private LocalDate createdAt;
