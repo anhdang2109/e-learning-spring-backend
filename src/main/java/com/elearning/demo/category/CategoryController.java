@@ -22,8 +22,11 @@ public class CategoryController {
         categoryService.saveCategory(category);
     }
 
-    @PutMapping("/admin/categories")
-    public void updateStudy(@RequestBody Category category) { categoryService.saveCategory(category); }
+    @PutMapping("/admin/categories/{id}")
+    public void updateStudy(@PathVariable(value = "id") Long id, @RequestBody Category category) {
+        category.setId(id);
+        categoryService.saveCategory(category);
+    }
 
     @DeleteMapping("/admin/categories/{id}")
     public void deleteStudy(@PathVariable(value = "id") Long id) {
