@@ -27,6 +27,8 @@ public class User {
     private LocalDate createdAt;
     private LocalDate updatedAt;
     private Integer isDeleted;
+    private String newPassword;
+    private String confirmPassword;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -34,6 +36,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Study> studies = new ArrayList<>();
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
     @Override
     public String toString() {
         return "User{" +

@@ -110,12 +110,25 @@ public class UserController {
     }
 
 
-    @PutMapping("/user/passwords")
-    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
-        if (!bindingResult.hasFieldErrors()) {
-            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+    @PutMapping("/users/new-password/{id}")
+    public ResponseEntity<User> updatePassword(@PathVariable Long id, @RequestBody User user) {
+        Optional<User> userOptional = this.userService.findById(id);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return null;
+
+        user.setId(userOptional.get().getId());
+        user.setUsername(userOptional.get().getUsername());
+        user.setEmail(userOptional.get().getEmail());
+        user.setIsDeleted(1);
+        user.setRoles(userOptional.get().getRoles());
+        user.setGender(userOptional.get().getGender());
+        user.setTitle(userOptional.get().getTitle());
+        user.setPhone(userOptional.get().getPhone());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
