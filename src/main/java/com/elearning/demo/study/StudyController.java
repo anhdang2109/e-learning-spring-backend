@@ -41,6 +41,11 @@ public class StudyController {
     @GetMapping("/admin/studies")
     public List<Study> studyList() {return studyService.findAllStudy();}
 
+    @GetMapping("/admin/studies/{userId}/{quizId}")
+    public List<Long> findStudyId(@PathVariable(value = "userId") Long userId, @PathVariable(value = "quizId") Long quizId) {
+        return studyService.getStudyById(userId, quizId);
+    }
+
     @GetMapping("/admin/studies/{id}")
     public Study findStudyById(@PathVariable(value = "id") Long id) {
         return studyService.findStudyById(id);

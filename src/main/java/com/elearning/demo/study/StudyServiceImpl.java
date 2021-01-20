@@ -1,5 +1,6 @@
 package com.elearning.demo.study;
 
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Service
 public class StudyServiceImpl implements StudyService{
+
     @Autowired
     private StudyRepository studyRepository;
 
@@ -21,4 +23,10 @@ public class StudyServiceImpl implements StudyService{
 
     @Override
     public void removeStudy(Long id) {studyRepository.deleteById(id);}
+
+    @Override
+    public List<Long> getStudyById(Long userId, Long quizId) {
+        return studyRepository.getStudyId(userId, quizId);
+    }
+
 }
