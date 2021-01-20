@@ -36,9 +36,6 @@ public class AttemptServiceImpl implements AttemptService {
 
 
 
-
-
-
     // Check score
     public long countAverageScore(Attempt attempt) {
         Boolean[] results = attemptBooleanArrayConverter(attempt);

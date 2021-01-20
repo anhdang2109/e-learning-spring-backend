@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -73,20 +75,23 @@ public class UserController {
 
     @PutMapping("/users/edit/{id}")
     public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        Role role = RoleService.findRoleByRoleName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Optional<User> user1 = userService.findById(id);
         if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         user1.get().setUsername(user.getUsername());
-        user1.get().setPassword(passwordEncoder.encode(user.getPassword()));
         user1.get().setEmail(user.getEmail());
         user1.get().setImageSource(user.getImageSource());
         user1.get().setTitle(user.getTitle());
         user1.get().setPhone(user.getPhone());
         user1.get().setGender(user.getGender());
-        user1.get().setRoles(user.getRoles());
+        user1.get().setRoles(roles);
         user1.get().setUpdatedAt(java.time.LocalDate.now());
-        user1.get().setIsDeleted(user.getIsDeleted());
+        user1.get().setIsDeleted(1);
 
         userService.save(user1.get());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -102,6 +107,15 @@ public class UserController {
     @ResponseBody
     public User userDetail(@PathVariable Long id) {
         return userService.findById(id).get();
+    }
+
+
+    @PutMapping("/user/passwords")
+    public ResponseEntity<User> changePassword(@Valid @RequestBody User user, BindingResult bindingResult) {
+        if (!bindingResult.hasFieldErrors()) {
+            return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
+        }
+        return null;
     }
 
 }
