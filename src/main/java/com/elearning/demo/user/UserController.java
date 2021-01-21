@@ -75,10 +75,6 @@ public class UserController {
 
     @PutMapping("/users/edit/{id}")
     public ResponseEntity<Optional<User>> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-        Role role = RoleService.findRoleByRoleName("ROLE_USER");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-
         Optional<User> user1 = userService.findById(id);
         if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -89,7 +85,7 @@ public class UserController {
         user1.get().setTitle(user.getTitle());
         user1.get().setPhone(user.getPhone());
         user1.get().setGender(user.getGender());
-        user1.get().setRoles(roles);
+        user.setRoles(user1.get().getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
         user1.get().setIsDeleted(1);
 
