@@ -54,18 +54,19 @@ public class AttemptController {
             Long idAssumption =  assumptionEdited.getId();
             Assumption assumptionExisted = assumptionService.findAssumptionById(idAssumption);
             assumptionExisted.setStatus("answered");
+            assumptionExisted.setGuessNumber(assumptionEdited.getGuessNumber());
             assumptionService.saveAssumption(assumptionExisted);
             List<UserAnswer> userAnswers = assumptionEdited.getUserAnswers();
             for (UserAnswer userAnswer: userAnswers){
                 Long idUserAnswer = userAnswer.getId();
                 UserAnswer userAnswerExisted = userAnswerService.findUserAnswerById(idUserAnswer);
                 userAnswerExisted.setCorrectAnswer(userAnswer.getCorrectAnswer());
+                userAnswerExisted.setContent(userAnswer.getContent());
                 userAnswerService.saveUserAnswer(userAnswerExisted);
             }
         }
         attemptExisted = attemptService.findAttemptById(idAttempt);
         attemptExisted.setAverageScore(attemptServiceImpl.countAverageScore(attemptService.findAttemptById(idAttempt)));
-        attemptService.saveAttempt(attemptExisted);
         return attemptService.saveAttempt(attemptExisted);
     }
 
