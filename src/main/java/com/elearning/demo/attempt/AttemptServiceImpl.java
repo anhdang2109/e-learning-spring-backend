@@ -37,11 +37,11 @@ public class AttemptServiceImpl implements AttemptService {
 
 
     // Check score
-    public long countAverageScore(Attempt attempt) {
+    public double countAverageScore(Attempt attempt) {
         Boolean[] results = attemptBooleanArrayConverter(attempt);
-        long countAnswerIsTrue = Arrays.stream(results).filter(value -> value == true).count();
-        double score = Math.ceil(((10 / results.length) * countAnswerIsTrue) * 100) / 100;
-        return (long) score;
+        double countAnswerIsTrue = Arrays.stream(results).filter(value -> value == true).count();
+        double score = Math.ceil(((10.0 / results.length) * countAnswerIsTrue) * 100) / 100;
+        return score;
     }
 
     //Check isCorrect status assumption
@@ -72,6 +72,7 @@ public class AttemptServiceImpl implements AttemptService {
     //ConvertAttemptResult into BooleanArray
     public Boolean[] attemptBooleanArrayConverter(Attempt attempt) {
         Boolean[] results = new Boolean[attempt.getAssumptions().size()];
+        int resultLength = results.length;
         System.out.println(attempt.getAssumptions().size());
         for (int i = 0; i < attempt.getAssumptions().size(); i++) {
             results[i] = checkAnswer(attempt.getAssumptions().get(i));

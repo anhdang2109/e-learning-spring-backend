@@ -66,6 +66,7 @@ public class AttemptController {
             }
         }
         attemptExisted = attemptService.findAttemptById(idAttempt);
+        double testnumber = attemptServiceImpl.countAverageScore(attemptService.findAttemptById(idAttempt));
         attemptExisted.setAverageScore(attemptServiceImpl.countAverageScore(attemptService.findAttemptById(idAttempt)));
         return attemptService.saveAttempt(attemptExisted);
     }
