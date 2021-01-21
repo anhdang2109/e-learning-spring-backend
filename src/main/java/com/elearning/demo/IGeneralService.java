@@ -13,4 +13,6 @@ public interface IGeneralService<T> {
     Optional<T> findById(Long id);
 
     void remove(Long id);
+
+    Iterable<T> findAllDeleted();
 }

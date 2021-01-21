@@ -14,4 +14,5 @@ public interface UserService extends IGeneralService<User>, UserDetailsService {
     Page<User> findAllByIsStatusIsTrue(Pageable pageable);
     User findByUserNameAndIsStatusIsTrue(String username);
     void restore(Long id);
+    void restored(Long id);
 }

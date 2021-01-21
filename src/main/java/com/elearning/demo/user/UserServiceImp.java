@@ -53,6 +53,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public void restored(Long id) {
+        userRepository.restored(id);
+    }
+
+    @Override
     public Iterable<User> findAll() {
         return userRepository.findAllByIsDeleted(1);
     }
@@ -71,6 +76,11 @@ public class UserServiceImp implements UserService {
     @Override
     public void remove(Long id) {
         userRepository.remove(id);
+    }
+
+    @Override
+    public Iterable<User> findAllDeleted() {
+        return userRepository.findAllByIsDeleted(0);
     }
 
     @Override

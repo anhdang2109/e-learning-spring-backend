@@ -68,8 +68,8 @@ public class UserController {
     }
 
     @GetMapping("/users/isdeleted")
-    public ResponseEntity<Iterable<User>> findAllUserDeleted(String username, Pageable pageable) {
-        return new ResponseEntity<>(userService.findAllByNameContaining(username, pageable), HttpStatus.OK);
+    public ResponseEntity<Iterable<User>> findAllUserDeleted() {
+        return new ResponseEntity<>(userService.findAllDeleted(), HttpStatus.OK);
     }
 
 
@@ -88,14 +88,20 @@ public class UserController {
         user.setRoles(user1.get().getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
         user1.get().setIsDeleted(1);
-
+        user1.get().setPassword(passwordEncoder.encode(user.getPassword()));
+        user1.get().setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         userService.save(user1.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/users/delete/{id}")
-    public void deleteUser(@PathVariable(value = "id") Long id) {
+    public void deleteUser0(@PathVariable(value = "id") Long id) {
         userService.restore(id);
+    }
+
+    @PutMapping("/users/deleted/{id}")
+    public void deletedUser1(@PathVariable(value = "id") Long id) {
+        userService.restored(id);
     }
 
     // User detail
@@ -123,6 +129,7 @@ public class UserController {
         user.setPhone(userOptional.get().getPhone());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
+        user.setUpdatedAt(java.time.LocalDate.now());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
