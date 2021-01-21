@@ -16,10 +16,8 @@ public class QuestionAnswerController {
     @Autowired
     private QuestionAnswerService questionAnswerService;
 
-    @GetMapping("/admin/questionAnswer")
-    public List<QuestionAnswer> questionAnswers() {return questionAnswerService.findAllQuestionAnswer();}
+    @GetMapping({"/admin/questionAnswer", "/admin/questionAnswer/{id}"})
 
-    @GetMapping("/admin/questionAnswer/{id}")
     public QuestionAnswer findAllQuestionAnswer(@PathVariable(value = "id") Long id) {
         return questionAnswerService.findQuestionAnswerAnswerById(id);
     }
