@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface StudyRepository extends JpaRepository<Study, Long> {
     @Query("select s.id from Study s where s.user.id = :userId and s.quiz.id = :quizId")
-    List<Long> getStudyId(@Param("userId") Long userId, @Param("quizId") Long quizId);
+    Long getStudyId(@Param("userId") Long userId, @Param("quizId") Long quizId);
 }

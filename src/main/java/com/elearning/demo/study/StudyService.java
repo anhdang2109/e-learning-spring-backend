@@ -7,5 +7,5 @@ public interface StudyService {
     Study saveStudy(Study study);
     Study findStudyById(Long id);
     void removeStudy(Long id);
-    List<Long> getStudyById(Long userId, Long quizId);
+    Long getStudyById(Long userId, Long quizId);
 }

@@ -25,7 +25,7 @@ public class StudyServiceImpl implements StudyService{
     public void removeStudy(Long id) {studyRepository.deleteById(id);}
 
     @Override
-    public List<Long> getStudyById(Long userId, Long quizId) {
+    public Long getStudyById(Long userId, Long quizId) {
         return studyRepository.getStudyId(userId, quizId);
     }
 
