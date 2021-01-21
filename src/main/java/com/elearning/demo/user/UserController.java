@@ -88,8 +88,6 @@ public class UserController {
         user.setRoles(user1.get().getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
         user1.get().setIsDeleted(1);
-        user1.get().setPassword(passwordEncoder.encode(user.getPassword()));
-        user1.get().setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         userService.save(user1.get());
         return new ResponseEntity<>(HttpStatus.OK);
     }
