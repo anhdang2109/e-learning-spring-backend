@@ -14,6 +14,7 @@ public class UserAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String code;
     private String content;
     private Boolean correctAnswer;
     private LocalDate createdAt;

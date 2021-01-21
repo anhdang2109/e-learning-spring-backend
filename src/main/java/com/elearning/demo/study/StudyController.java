@@ -79,10 +79,13 @@ public class StudyController {
             Long idNewAssumption = assumptionService.saveAssumption(new Assumption()).getId();
             Assumption newAssumption = assumptionService.findAssumptionById(idNewAssumption);
             newAssumption.setQuestion(studyQuiz.getQuestions().get(i));
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < studyQuiz.getQuestions().get(i).getQuestionAnswers().size(); j++) {
                 Long idNewUserAnswer = userAnswerService.saveUserAnswer(new UserAnswer()).getId();
                 UserAnswer newUserAnswer = userAnswerService.findUserAnswerById(idNewUserAnswer);
                 newUserAnswer.setContent(studyQuiz.getQuestions().get(i).getQuestionAnswers().get(j).getContent());
+                if (studyQuiz.getQuestions().get(i).getType().equals("input")){
+                    newUserAnswer.setContent("");
+                }
                 newUserAnswer.setCorrectAnswer(false);
                 newUserAnswer.setAssumption(newAssumption);
                 userAnswerService.saveUserAnswer(newUserAnswer);
