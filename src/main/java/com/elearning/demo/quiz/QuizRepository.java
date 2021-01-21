@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
-    @Query("select s.category_id, count(category_id) from quiz s where s.category_id = :id")
-    Long countQuizByCategoryId(@Param("userId") Long id);
+    @Query(value = "select count(category_id) from Quiz s where s.category_id = :id", nativeQuery = true)
+    Long countQuizByCategoryId(@Param("id") Long id);
 
 }
