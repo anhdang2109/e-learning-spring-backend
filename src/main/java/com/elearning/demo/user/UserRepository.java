@@ -32,4 +32,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "UPDATE user u set u.is_deleted = 0 where u.id = :id", nativeQuery = true)
     void restore(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE user u set u.is_deleted = 1 where u.id = :id", nativeQuery = true)
+    void restored(@Param("id") Long id);
 }
