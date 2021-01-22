@@ -8,4 +8,5 @@ public interface QuizService {
     Quiz findQuizById(Long id);
     Quiz saveQuiz(Quiz quiz);
     void removeQuiz(Long id);
+    Long countQuizByCategoryId(Long id);
 }

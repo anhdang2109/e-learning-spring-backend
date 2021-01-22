@@ -28,4 +28,9 @@ public class QuizServiceImpl implements QuizService {
     public void removeQuiz(Long id) {
         quizRepository.deleteById(id);
     }
+
+    @Override
+    public Long countQuizByCategoryId(Long id) {
+        return quizRepository.countQuizByCategoryId(id);
+    }
 }
