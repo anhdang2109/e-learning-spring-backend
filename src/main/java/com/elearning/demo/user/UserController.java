@@ -85,7 +85,7 @@ public class UserController {
         user1.get().setTitle(user.getTitle());
         user1.get().setPhone(user.getPhone());
         user1.get().setGender(user.getGender());
-        user.setRoles(user1.get().getRoles());
+        user1.get().setRoles(user.getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
         user1.get().setIsDeleted(1);
         userService.save(user1.get());
