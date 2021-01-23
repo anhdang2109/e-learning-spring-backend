@@ -78,14 +78,14 @@ public class UserController {
         Optional<User> user1 = userService.findById(id);
         if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        }   
         user1.get().setUsername(user.getUsername());
         user1.get().setEmail(user.getEmail());
         user1.get().setImageSource(user.getImageSource());
         user1.get().setTitle(user.getTitle());
         user1.get().setPhone(user.getPhone());
         user1.get().setGender(user.getGender());
-        user.setRoles(user1.get().getRoles());
+        user1.get().setRoles(user.getRoles());
         user1.get().setUpdatedAt(java.time.LocalDate.now());
         user1.get().setIsDeleted(1);
         userService.save(user1.get());
