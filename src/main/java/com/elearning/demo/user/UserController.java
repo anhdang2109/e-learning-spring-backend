@@ -78,7 +78,7 @@ public class UserController {
         Optional<User> user1 = userService.findById(id);
         if (!user1.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        }   
         user1.get().setUsername(user.getUsername());
         user1.get().setEmail(user.getEmail());
         user1.get().setImageSource(user.getImageSource());
