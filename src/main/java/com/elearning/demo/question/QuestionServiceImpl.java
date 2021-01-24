@@ -16,6 +16,16 @@ public class QuestionServiceImpl implements QuestionService  {
     }
 
     @Override
+    public List<Question> findAllByCodeContaining(String code) {
+        return questionRepository.findAllByCodeContaining(code);
+    }
+
+    @Override
+    public List<Question> findAllByCodeContainingOrTypeContainingOrLevelContaining(String code, String type, String level) {
+        return null;
+    }
+
+    @Override
     public Question findQuestionById(Long id) {
         return questionRepository.findById(id).orElse(null);
     }

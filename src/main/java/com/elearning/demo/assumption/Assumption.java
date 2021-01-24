@@ -16,6 +16,10 @@ public class Assumption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String type;
+    private String level;
+    private String content;
+    private String explanation;
     private Long guessNumber;
     private Long point;
     private String status;
