@@ -1,5 +1,6 @@
 package com.elearning.demo.question;
 import com.elearning.demo.assumption.Assumption;
+import com.elearning.demo.category.Category;
 import com.elearning.demo.question_answer.QuestionAnswer;
 import com.elearning.demo.quiz.Quiz;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +39,10 @@ public class Question {
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
 }

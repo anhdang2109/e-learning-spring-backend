@@ -95,6 +95,10 @@ public class StudyController {
                 newUserAnswer.setAssumption(newAssumption);
                 userAnswerService.saveUserAnswer(newUserAnswer);
             }
+            newAssumption.setContent(studyQuiz.getQuestions().get(i).getContent());
+            newAssumption.setType(studyQuiz.getQuestions().get(i).getType());
+            newAssumption.setLevel(studyQuiz.getQuestions().get(i).getLevel());
+            newAssumption.setExplanation(studyQuiz.getQuestions().get(i).getExplanation());
             newAssumption.setAttempt(newAttempt);
             assumptionService.saveAssumption(newAssumption);
         }
@@ -104,6 +108,12 @@ public class StudyController {
 
     @DeleteMapping("/admin/studies/{id}")
     public void deleteStudy(@PathVariable(value = "id") Long id) {
+        Study study = studyService.findStudyById(id);
+        List<Attempt> studyAttempts = study.getAttempts();
+        for (Attempt attempt: studyAttempts) {
+            attempt.setStudy(null);
+            attemptService.saveAttempt(attempt);
+        }
         studyService.removeStudy(id);
     }
 }

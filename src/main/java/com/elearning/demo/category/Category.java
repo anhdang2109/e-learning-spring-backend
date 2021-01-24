@@ -1,4 +1,5 @@
 package com.elearning.demo.category;
+import com.elearning.demo.question.Question;
 import com.elearning.demo.quiz.Quiz;
 import com.elearning.demo.study.Study;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,12 @@ public class Category {
     private LocalDate updated_at;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
+    @JsonIgnore
+    private List<Question> questions = new ArrayList<>();
 
 
 }

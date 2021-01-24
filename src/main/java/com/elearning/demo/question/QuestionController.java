@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +33,11 @@ public class QuestionController {
     @GetMapping("/{id}")
     public Question findQuestionById(@PathVariable(value = "id") Long id) {
         return questionService.findQuestionById(id);
+    }
+
+    @PostMapping(value = "/searchByCode", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Question> searchQuestionByCode(@RequestBody QuestionSearch search) {
+        return questionService.findAllByCodeContaining(search.getCode());
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,6 +66,14 @@ public class QuestionController {
         if (question == null) {
             return null;
         }
+        List<Quiz> questionQuizzes = question.getQuizzes();
+        if (questionQuizzes.size() != 0) {
+            return null;
+        }
+//        for (Quiz quiz: questionQuizzes) {
+//            quiz.getQuestions().removeIf(questionToDelete -> questionToDelete.getId().equals(id));
+//            quizService.saveQuiz(quiz);
+//        }
         List<Assumption> questionAssumptions = question.getAssumptions();
         for (Assumption assumption: questionAssumptions) {
             assumption.setQuestion(null);
@@ -72,11 +83,6 @@ public class QuestionController {
         for (QuestionAnswer questionAnswer: questionAnswers) {
             questionAnswer.setQuestion(null);
             questionAnswerService.saveQuestionAnswer(questionAnswer);
-        }
-        List<Quiz> questionQuizzes = question.getQuizzes();
-        for (Quiz quiz: questionQuizzes) {
-            quiz.getQuestions().removeIf(questionToDelete -> questionToDelete.getId().equals(id));
-            quizService.saveQuiz(quiz);
         }
         questionService.removeQuestion(id);
         return question;

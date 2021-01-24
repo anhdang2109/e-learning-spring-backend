@@ -6,6 +6,6 @@ public interface CategoryService {
     List<Category> findAllCategory();
     Category findCategoryById(Long id);
     Category saveCategory(Category category);
-    void  removeCategory(Long id);
+    void removeCategory(Long id);
 
 }
