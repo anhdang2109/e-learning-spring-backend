@@ -46,6 +46,7 @@ public class UserController {
         roles.add(role);
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         user.setCreatedAt(java.time.LocalDate.now());
         user.setImageSource(user.getImageSource());
         user.setPhone(user.getPhone());
