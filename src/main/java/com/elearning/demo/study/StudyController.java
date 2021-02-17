@@ -39,7 +39,9 @@ public class StudyController {
     private UserAnswerService userAnswerService;
 
     @GetMapping("/admin/studies")
-    public List<Study> studyList() {return studyService.findAllStudy();}
+    public List<Study> studyList() {
+        return studyService.findAllStudy();
+    }
 
     @GetMapping("/admin/studies/{userId}/{quizId}")
     public Long findStudyId(@PathVariable(value = "userId") Long userId, @PathVariable(value = "quizId") Long quizId) {
@@ -66,7 +68,9 @@ public class StudyController {
     }
 
     @PutMapping("/admin/studies")
-    public void updateStudy(@RequestBody Study study) { studyService.saveStudy(study); }
+    public void updateStudy(@RequestBody Study study) {
+        studyService.saveStudy(study);
+    }
 
     @PostMapping("/admin/studies/addAttempt")
     public Attempt addAttempt(@RequestBody Study study) {
@@ -78,6 +82,7 @@ public class StudyController {
         newAttempt.setStatus("in progress");
         newAttempt.setUsername(studyExisted.getUser().getUsername());
         newAttempt.setEmail(studyExisted.getUser().getEmail());
+        newAttempt.setCreatedAt(java.time.LocalDate.now());
         List<Assumption> newAttemptAssumption = new ArrayList<>();
         Quiz studyQuiz = study.getQuiz();
         for (int i = 0; i < studyQuiz.getQuestions().size(); i++) {
@@ -88,7 +93,7 @@ public class StudyController {
                 Long idNewUserAnswer = userAnswerService.saveUserAnswer(new UserAnswer()).getId();
                 UserAnswer newUserAnswer = userAnswerService.findUserAnswerById(idNewUserAnswer);
                 newUserAnswer.setContent(studyQuiz.getQuestions().get(i).getQuestionAnswers().get(j).getContent());
-                if (studyQuiz.getQuestions().get(i).getType().equals("input")){
+                if (studyQuiz.getQuestions().get(i).getType().equals("input")) {
                     newUserAnswer.setContent("");
                 }
                 newUserAnswer.setCorrectAnswer(false);
@@ -110,7 +115,7 @@ public class StudyController {
     public void deleteStudy(@PathVariable(value = "id") Long id) {
         Study study = studyService.findStudyById(id);
         List<Attempt> studyAttempts = study.getAttempts();
-        for (Attempt attempt: studyAttempts) {
+        for (Attempt attempt : studyAttempts) {
             attempt.setStudy(null);
             attemptService.saveAttempt(attempt);
         }

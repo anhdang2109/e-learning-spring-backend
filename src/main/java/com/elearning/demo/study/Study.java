@@ -23,8 +23,8 @@ public class Study {
     private String username;
     private String email;
     private Long highestScore;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")

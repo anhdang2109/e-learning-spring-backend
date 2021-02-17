@@ -48,6 +48,7 @@ public class AttemptController {
         Long idAttempt = attempt.getId();
         Attempt attemptExisted = attemptService.findAttemptById(idAttempt);
         attemptExisted.setStatus("finished");
+        attemptExisted.setUpdatedAt(java.time.LocalDate.now());
         attemptService.saveAttempt(attemptExisted);
         List<Assumption> assumptions = attempt.getAssumptions();
         for (Assumption assumptionEdited:assumptions) {

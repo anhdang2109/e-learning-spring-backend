@@ -25,8 +25,8 @@ public class Assumption {
     private String status;
     private boolean isCorrect;
     private boolean isFlag;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 
     @ManyToOne

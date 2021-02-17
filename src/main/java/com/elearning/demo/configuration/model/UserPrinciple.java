@@ -26,12 +26,6 @@ public class UserPrinciple implements UserDetails {
         this.roles = roles;
     }
 
-    public UserPrinciple(Long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
     public static UserPrinciple build(User user){
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getRoleName())

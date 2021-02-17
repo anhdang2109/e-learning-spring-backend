@@ -22,8 +22,9 @@ public class Attempt {
     private String username;
     private String email;
     private double averageScore;
-    private LocalDate submittedAt;
+    private LocalDate submitteedAt;
     private LocalDate createdAt;
+    private LocalDate updatedAt;
     private Long takingTime;
 
 

@@ -20,8 +20,8 @@ public class Category {
     private Long id;
     private String name;
     private String description;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE)
     @JsonIgnore

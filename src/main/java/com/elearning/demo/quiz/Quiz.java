@@ -19,8 +19,8 @@ public class Quiz {
     private String quizname;
     private String description;
     private Long randomNumber;
-    private LocalDate created_at;
-    private LocalDate updated_at;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
